@@ -7,45 +7,39 @@ use App\model\ArticleModel;
 
 class ArticleRepository extends Database
 {
-    private $connection;
-
-    public function __construct()
-    {
-        $this->connection = $this->getConnection();
-    }
-
     public function createArticle(ArticleModel $article) : bool
     {
-        $sql = 'INSERT INTO articles VALUES (:id, :date, :titre, :contenu, :auteur, :etat)';
+        $sql = 'INSERT INTO articles VALUES (:date, :titre, :description, :marque, :etat)';
         $result = $this->createQuery($sql, [
-            ':id' => $article->getId(),
-            ':title' => $article->getDate(),
-            ':content' => $article->getTitre(),
-            ':createdAt' => $article->getContenu(),
-            'updatedAt' => $article->getAuteur(),
-            'deletedAt' => $article->getEtat(),
+            ':date' => $article->getDate(),
+            ':titre' => $article->getTitre(),
+            ':description' => $article->getDescription(),
+            'marque' => $article->getMarque(),
+            'etat' => $article->getEtat(),
         ]);
         return (bool) $result->rowCount();
     }
 
     public function getLast3(): array
     {
-        $prep = $this->connection->prepare("SELECT article_id, article_titre, article_contenu FROM articles WHERE article_etat = 1 ORDER BY article_date DESC");
-        $prep->execute();
-        return $prep->fetchAll(\PDO::FETCH_ASSOC);
+        $prep = $this->createQuery("SELECT * description FROM articles WHERE etat = 1 ORDER BY DATE DESC LIMIT 3", []);
+        $result = $prep->fetchAll(\PDO::FETCH_ASSOC);
+        $res = array();
+        foreach ($result as $row) {
+            array_push($res, ($this->buildObject($row)));
+        }
+        return $res;
     }
 
     public function getNumberArticles(): int
     {
-        $prep = $this->connection->prepare("SELECT count(*) AS 'nb' FROM articles WHERE article_etat = 1");
-        $prep->execute();
+        $prep = $this->createQuery("SELECT count(*) AS 'nb' FROM articles WHERE etat = 1",[]);
         return ($prep->fetch())['nb'];
     }
 
     public function getAll(): array
     {
-        $prep = $this->connection->prepare("SELECT * FROM articles");
-        $prep->execute();
+        $prep = $this->createQuery("SELECT * FROM articles", []);
         $result = $prep->fetchAll(\PDO::FETCH_ASSOC);
         $res = array();
         foreach ($result as $row) {
@@ -56,16 +50,15 @@ class ArticleRepository extends Database
 
     public function checkExist(int $id): bool
     {
-        $sql = 'SELECT * FROM articles WHERE article_id=:id';
-        $result = $this->createQuery($sql, [':id' => $id]);
+        $result = $this->createQuery('SELECT * FROM articles WHERE id=:id', [':id' => $id]);
         return (bool) $result->rowCount();
     }
 
     public function getById(int $id)
     {
-        $sql = 'SELECT * FROM articles WHERE article_id=:id AND article_etat=:etat';
         if ($this->checkExist($id)) {
-            $result = $this->createQuery($sql, [':id' => $id, ':etat' => 1]);
+            $result = $this->createQuery('SELECT * FROM articles WHERE id=:id AND etat=:etat', 
+            [':id' => $id, ':etat' => 1]);
             return $this->buildObject($result->fetch());
         }
         return false;
@@ -74,12 +67,12 @@ class ArticleRepository extends Database
     public function buildObject($row): ArticleModel
     {
         $article = new ArticleModel();
-        $article->setId($row['article_id']);
-        $article->setDate($row['article_date']);
-        $article->setTitre($row['article_titre']);
-        $article->setContenu($row['article_contenu']);
-        $article->setAuteur($row['article_auteur']);
-        $article->setEtat($row['article_etat']);
+        $article->setId($row['id']);
+        $article->setDate($row['date']);
+        $article->setTitre($row['titre']);
+        $article->setDescription($row['description']);
+        $article->setMarque($row['marque']);
+        $article->setEtat($row['etat']);
 
         return $article;
     }

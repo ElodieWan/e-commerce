@@ -4,39 +4,30 @@ namespace App\model;
 class ArticleModel
 {
     private int $id;
-    private string $date;
-    private string $titre;
-    private string $contenu;
-    private string $auteur;
+    private String $date;
+    private String $titre;
+    private String $description;
+    private String $marque;
+    private int $prix;
     private bool $etat;
-/*
-    public function __construct(int $id, \DateTime $date, String $titre, String $contenu, String $auteur, bool $etat)
-    {
-        $this->id = $id;
-        $this->date = $date;
-        $this->titre = $titre;
-        $this->contenu = $contenu;
-        $this->auteur = $auteur;
-        $this->etat = $etat;
-    }
-*/
+
     public function getId(): int
     {
         return $this->id;
     }
 
-    public function setId(int $id) : self 
+    public function setId(int $id) : self
     {
-        $this->id=$id;
+        $this->id = $id;
         return $this;
     }
     
-    public function getDate() : string
+    public function getDate() : String
     {
         return $this->date;
     }
 
-    public function setDate(string $date) : self
+    public function setDate(String $date) : self
     {
         $this->date = $date;
         return $this;
@@ -53,25 +44,36 @@ class ArticleModel
         return $this;
     }
 
-    public function getContenu():String
+    public function getDescription():String
     {
-        return $this->contenu;
+        return $this->description;
     }
 
-    public function setContenu(String $contenu):self
+    public function setDescription(String $description):self
     {
-        $this->contenu = $contenu;
+        $this->description = $description;
         return $this;
     }
 
-    public function getAuteur() : string
+    public function getMarque() : String
     {
-        return $this->auteur;
+        return $this->marque;
     }
 
-    public function setAuteur(String $auteur) : self
+    public function setMarque(String $marque) : self
     {
-        $this->auteur = $auteur;
+        $this->marque = $marque;
+        return $this;
+    }
+
+    public function getPrix() : int
+    {
+        return $this->prix;
+    }
+
+    public function setPrix(int $prix) : self
+    {
+        $this->prix = $prix;
         return $this;
     }
 

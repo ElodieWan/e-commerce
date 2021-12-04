@@ -2,13 +2,14 @@
 
 <img src="/assets/img/valloire.jpg" class="w-100 mb-2">
 
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+<p>Un site avec des produits incroyable pour animaux.</p>
 
 <h3>Les 3 derniers articles :</h3>
 <ul>
 	<?php #Avec cette boucle on affiche 1 à 1 les articles sous la forme d'une liste où les éléments sont cliquables et renvoient vers les articles
+	var_dump($lastThree);
 	foreach($lastThree as $article) {?>
-		<li><a href="router.php?route=article&action=read&id=<?= $article["article_id"];?>"><?= $article["article_titre"]; ?></a></li>
+		<li><a href="index.php?route=article&action=read&id=<?= $article->getId();?>"><?= $article->getTitre(); ?></a></li>
 	<?php
 	}
 	?>
@@ -22,6 +23,6 @@
 	</div>
 
 	<div class="col-8">
-		<p>Nam imperdiet commodo ipsum quis lacinia. Mauris posuere sapien felis, sit amet commodo ipsum sagittis eu. Nam sit amet eleifend urna. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. <b>Sed sit amet ex enim.</b> Mauris vel ullamcorper purus. Vivamus non urna tortor. Etiam facilisis lorem dignissim sapien blandit, in facilisis tortor ornare. Integer at tincidunt tellus, eget volutpat libero. <i>Sed magna libero, dapibus quis magna id, convallis vulputate justo.</i> Duis pellentesque est ut dui efficitur, sit amet efficitur justo molestie.</p>
+		<p>Blabla.</p>
 	</div>
 </div>
