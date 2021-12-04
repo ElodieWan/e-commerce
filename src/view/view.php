@@ -11,11 +11,14 @@ class View
     {
         $this->file = __DIR__.$templatePath.'.php';
         $content  = $this->renderFile($this->file, $data);
-        $view = $this->renderFile(__DIR__.'/base.php', [
+        $base = '/base/begin.php';
+        if (isset($_SESSION['connecte'])) {
+            $base = '/base/beginConnecter.php';
+        }
+        $view = $this->renderFile(__DIR__.$base, [
             'title' => $this->title,
             'content' => $content
         ]);
-        
         echo $view;
     }
     

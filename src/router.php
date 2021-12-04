@@ -3,7 +3,7 @@
 namespace App;
 
 use App\controller\ConnexionController;
-use App\controller\PostController;
+use App\controller\ArticleController;
 
 class Router
 {
@@ -13,17 +13,24 @@ class Router
         $action = $_GET['action'] ?? null;
 
         if (isset($_GET['route'])) {
-            if ('post' === $route && $action) {
-                //$postController = new PostController();
-                $co = new ConnexionController();
-                if ('create' === $action) {
-                //    return $postController->create();
-                } elseif ('read' === $action && isset($_GET['id'])) {
-                    return $co->read($_GET['id']);
-                //    return $postController->read($_GET['id']);
+            if ('article' === $route) {
+                $article = new ArticleController();
+
+                if ($action) {
+                    if ('create' === $action) {
+                        //    return $postController->create();
+                    } elseif ('read' === $action && isset($_GET['id'])) {
+                        return $article->read($_GET['id']);
+                    }
                 }
-            } elseif ('contact' === $route) {
-                var_dump('contact');
+                return $article->readAll();
+            } elseif ('login' === $route && $action) {
+                if ('connexion' === $action) {
+                } elseif ('deconnexion' === $action) {
+                }
+            } elseif ('shopping' === $route && $action) {
+                if ('read' === $action) {
+                }
             }
         } else {
             require_once 'index.php';

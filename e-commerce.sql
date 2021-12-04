@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : sam. 04 déc. 2021 à 17:40
+-- Généré le : sam. 04 déc. 2021 à 20:38
 -- Version du serveur :  5.7.31
 -- Version de PHP : 7.4.9
 
@@ -35,17 +35,20 @@ CREATE TABLE IF NOT EXISTS `articles` (
   `description` text NOT NULL,
   `marque` varchar(10000) NOT NULL,
   `prix` float(255,0) NOT NULL,
+  `image` varchar(10000) NOT NULL,
   `etat` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `articles`
 --
 
-INSERT INTO `articles` (`id`, `date`, `titre`, `description`, `marque`, `prix`, `etat`) VALUES
-(1, '2021-12-02', 'Collier cher', 'Un collier cher', 'GenshinImpact', 1000, 1),
-(2, '2021-12-04', 'Collier pas cher', 'Un collier pas cher', 'Sorbonne', 1, 1);
+INSERT INTO `articles` (`id`, `date`, `titre`, `description`, `marque`, `prix`, `image`, `etat`) VALUES
+(1, '2021-12-02', 'Collier cher', 'Un collier cher', 'GenshinImpact', 1000, 'https://via.placeholder.com/150', 1),
+(2, '2021-12-04', 'Collier pas cher', 'Un collier pas cher', 'Sorbonne', 1, 'https://via.placeholder.com/150', 1),
+(6, '2021-12-02', 'Laisse', 'Pour attacher l\'animal', 'Jsp', 2, 'https://via.placeholder.com/150', 1),
+(5, '2021-12-02', 'Laisse', 'Pour attacher l\'animal', 'Jsp', 2, 'https://via.placeholder.com/150', 1);
 
 -- --------------------------------------------------------
 

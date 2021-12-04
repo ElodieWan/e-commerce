@@ -22,7 +22,7 @@ class ArticleRepository extends Database
 
     public function getLast3(): array
     {
-        $prep = $this->createQuery("SELECT * description FROM articles WHERE etat = 1 ORDER BY DATE DESC LIMIT 3", []);
+        $prep = $this->createQuery("SELECT * FROM articles WHERE etat = 1 ORDER BY DATE DESC LIMIT 3");
         $result = $prep->fetchAll(\PDO::FETCH_ASSOC);
         $res = array();
         foreach ($result as $row) {
@@ -33,13 +33,13 @@ class ArticleRepository extends Database
 
     public function getNumberArticles(): int
     {
-        $prep = $this->createQuery("SELECT count(*) AS 'nb' FROM articles WHERE etat = 1",[]);
+        $prep = $this->createQuery("SELECT count(*) AS 'nb' FROM articles WHERE etat = 1");
         return ($prep->fetch())['nb'];
     }
 
     public function getAll(): array
     {
-        $prep = $this->createQuery("SELECT * FROM articles", []);
+        $prep = $this->createQuery("SELECT * FROM articles");
         $result = $prep->fetchAll(\PDO::FETCH_ASSOC);
         $res = array();
         foreach ($result as $row) {
@@ -72,6 +72,8 @@ class ArticleRepository extends Database
         $article->setTitre($row['titre']);
         $article->setDescription($row['description']);
         $article->setMarque($row['marque']);
+        $article->setPrix($row['prix']);
+        $article->setImage($row['image']);
         $article->setEtat($row['etat']);
 
         return $article;

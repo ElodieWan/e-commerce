@@ -2,23 +2,40 @@
 
 namespace App\controller;
 
+use App\view\View;
 use App\repository\ArticleRepository;
 
 class ArticleController
 {
+    private View $view;
+    private ArticleRepository $articleRepository;
+
+    public function __construct()
+    {
+        $this->view = new View();
+        $this->articleRepository = new ArticleRepository();
+    }
+
     public function read($id)
     {
-        $articleRepository = new ArticleRepository();
-        if ($articleRepository->checkExist($id)) {
-            header('Location: article.php?id=' . $id);
-            exit();
+        if ($this->articleRepository->checkExist($id)) {
+            $this->view->render("/ArticleView/read", [
+                "article" => $this->articleRepository->getById($id)
+            ]);
         }
-        header('Location: articles.php');
+    }
+
+    public function readAll()
+    {
+        $this->view->render("/ArticleView/readAll", [
+            "articles" => $this->articleRepository->getAll(),
+            "rowCount" => (((int)($this->articleRepository->getNumberArticles()/3))+1)*3,
+            "articlesNumber" => $this->articleRepository->getNumberArticles()
+        ]);
     }
 
     public function create()
     {
-        $articleRepository = new ArticleRepository();
     }
 
     public function modif() {

@@ -9,6 +9,7 @@ class ArticleModel
     private String $description;
     private String $marque;
     private int $prix;
+    private String $image;
     private bool $etat;
 
     public function getId(): int
@@ -74,6 +75,17 @@ class ArticleModel
     public function setPrix(int $prix) : self
     {
         $this->prix = $prix;
+        return $this;
+    }
+
+    public function getImage() : String
+    {
+        return $this->image;
+    }
+
+    public function setImage(String $image) : self
+    {
+        $this->image = $image;
         return $this;
     }
 
