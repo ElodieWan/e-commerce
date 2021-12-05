@@ -1,6 +1,7 @@
 # ecommerce
 
 Router : 
+
     - Tous ce qui concerne les articles sont sur la route article.
         Action (Possible à l'heure actuel) :
             - read($id)  (envoie vers le controller pour lire l'article avec $id)
