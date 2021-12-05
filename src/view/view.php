@@ -6,18 +6,16 @@ class View
 {
     private string $file;
     private string $title = 'test';
+    private string $message="";
 
     public function render($templatePath, $data = [])
     {
         $this->file = __DIR__.$templatePath.'.php';
         $content  = $this->renderFile($this->file, $data);
-        $base = '/base/begin.php';
-        if (isset($_SESSION['connecte'])) {
-            $base = '/base/beginConnecter.php';
-        }
-        $view = $this->renderFile(__DIR__.$base, [
+        $view = $this->renderFile(__DIR__.'/base.php', [
             'title' => $this->title,
-            'content' => $content
+            'content' => $content,
+            'message' => $this->message
         ]);
         echo $view;
     }
@@ -26,6 +24,9 @@ class View
     {
         if (file_exists($file)) {
             extract($data);
+            if (isset($message)) {
+                $this->message = $message;
+            }
             ob_start();
             
             require_once $file;

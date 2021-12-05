@@ -1,6 +1,7 @@
 <?php
 
 namespace App\model;
+use App\model\PanierModel;
 
 class UsersModel
 {
@@ -9,10 +10,17 @@ class UsersModel
     private String $email;
     private String $password;
     private int $authority;
+    private PanierModel $panier;
 
     public function getId() : int
     {
         return $this->id;
+    }
+
+    public function setId(int $id) : self
+    {
+        $this->id = $id;
+        return $this;
     }
 
     public function getUsername() : String
@@ -48,7 +56,7 @@ class UsersModel
         return $this;
     }
 
-    public function getAutorithy() : int
+    public function getAuthority() : int
     {
         return $this->authority;
     }
@@ -56,6 +64,17 @@ class UsersModel
     public function setAuthority(int $authority) : self
     {
         $this->authority = $authority;
+        return $this;
+    }
+
+    public function getPanier() : PanierModel
+    {
+        return $this->panier;
+    }
+
+    public function setPanier(PanierModel $panier) : self
+    {
+        $this->panier = $panier;
         return $this;
     }
 }

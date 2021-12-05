@@ -12,12 +12,19 @@
     }
 }
 
-.col {
-    width: 18em;
+.resize {
+    width: 35px;
+    height: auto;
 }
 
-.card-img-top {
-    width: 100%;
-    height: 15vw;
-    object-fit: cover;
+.btn {
+    border: 2px solid black !important;
+}
+
+.linkToArticles {
+    text-decoration: none;
+}
+
+.connexion:hover {
+    color: cornsilk;
 }

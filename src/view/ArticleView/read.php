@@ -8,7 +8,10 @@
 <ul>
 	<li>Marque : <?= $article->getMarque(); ?></li>
 	<li>Description : <?= $article->getDescription()?></li>
+	<li>Prix : <?= $article->getPrix()?>€</li>
 </ul>
+
+<button class="d-flex align-center">Ajouter au panier</button>
 
 <?php #Ce qui est entre le if ne sera ajouté que lorsque l'utilisateur sera connecté ;) ?>
 <?php if (isset($_SESSION['utilisateur_connecte'])): ?>

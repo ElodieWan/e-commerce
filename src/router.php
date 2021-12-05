@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\controller\ConnexionController;
+use App\controller\UsersController;
 use App\controller\ArticleController;
 
 class Router
@@ -18,15 +18,22 @@ class Router
 
                 if ($action) {
                     if ('create' === $action) {
-                        //    return $postController->create();
                     } elseif ('read' === $action && isset($_GET['id'])) {
                         return $article->read($_GET['id']);
                     }
                 }
                 return $article->readAll();
-            } elseif ('login' === $route && $action) {
+            } elseif ('users' === $route && $action) {
+                $users = new UsersController();
                 if ('connexion' === $action) {
+                    $users->connexion();
+                } elseif ('inscription' === $action) {
+                    $users->inscription();
+                } elseif ('login' === $action) {
+                    $users->login();
                 } elseif ('deconnexion' === $action) {
+                } elseif ('create' === $action) {
+                    $users->create();
                 }
             } elseif ('shopping' === $route && $action) {
                 if ('read' === $action) {

@@ -16,7 +16,8 @@
 			</div>
 		</div>
 	<?php endforeach; ?>
-	<div class="col text-center">
-		<button class="btn btn-default" href="index.php?action=article">Voir plus d'articles</button>
-	</div>
+</div>
+
+<div class="col text-center mt-3 mb-3">
+	<button class="btn btn-default"><a class="linkToArticles" href="index.php?route=article">Voir plus d'articles</a></button>
 </div>

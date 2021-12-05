@@ -13,7 +13,7 @@ class UsersRepository extends Database
         $message='incorrect username';
         $prep = $this->createQuery('SELECT * FROM users WHERE username=:username', [':username'=>$username]);
         if((bool) $prep->rowCount()) {
-            $resultat = $this->buildObject($prep);
+            $resultat = $this->buildObject($prep->fetch());
             if (password_verify($password, $resultat->getPassword())) {
                 return $resultat;
             }
@@ -22,13 +22,19 @@ class UsersRepository extends Database
         return $message;
     }
 
-    public function createAccount(UsersModel $users) : bool
+    public function checkExist(String $username) : bool
     {
-        $prep = $this->createQuery('INSERT INTO users VALUE :username, :email, :password, :authority', [
-            ':username'=>$users->getUsername(),
-            ':email'=>$users->getEmail(),
-            ':password'=>password_hash($users->getPassword(), PASSWORD_DEFAULT),
-            'autorithy'=>$users->getAutorithy()
+        $prep = $this->createQuery('SELECT * FROM users WHERE username=:username', [':username'=>$username]);
+        return (bool) $prep->rowCount();
+    }
+
+    public function createAccount(array $data=[])
+    {
+        $prep = $this->createQuery('INSERT INTO users (username, email, password, authority) VALUES (:username, :email, :password, :authority)', [
+            ':username'=>$data['username'],
+            ':email'=>$data['email'],
+            ':password'=>password_hash($data['password'], PASSWORD_DEFAULT),
+            'authority'=>1
         ]);
         return (bool) $prep->rowCount();
     }
@@ -36,10 +42,12 @@ class UsersRepository extends Database
     public function buildObject($row): UsersModel
     {
         $users = new UsersModel();
+        $users->setId($row['id']);
         $users->setUsername($row['username']);
         $users->setEmail($row['email']);
         $users->setPassword($row['password']);
         $users->setAuthority($row['authority']);
+        $users->setPanier($row['panier']);
 
         return $users;
     }
