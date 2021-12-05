@@ -18,7 +18,7 @@ class PanierRepository extends Database
 
     public function deleteArticle($data = []) : bool
     {
-        $prep = $this->createQuery("DELETE FROM panier_articles WHERE idUsers=:idUsers AND idArticles=:idArticles", [
+        $prep = $this->createQuery("DELETE FROM panier_articles WHERE idUsers=:idUsers AND idArticles=:idArticles LIMIT 1", [
             ':idUsers'=>$data['idUsers'],
             ':idArticles'=>$data['idArticles']
         ]);
