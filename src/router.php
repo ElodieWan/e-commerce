@@ -4,6 +4,7 @@ namespace App;
 
 use App\controller\UsersController;
 use App\controller\ArticleController;
+use App\controller\PanierController;
 
 class Router
 {
@@ -20,6 +21,8 @@ class Router
                     if ('create' === $action) {
                     } elseif ('read' === $action && isset($_GET['id'])) {
                         return $article->read($_GET['id']);
+                    } elseif ('modif' === $action && isset($_GET['id'])) {
+                        return $article->read($_GET['id']);
                     }
                 }
                 return $article->readAll();
@@ -32,11 +35,20 @@ class Router
                 } elseif ('login' === $action) {
                     $users->login();
                 } elseif ('deconnexion' === $action) {
+                    $users->deconnexion();
                 } elseif ('create' === $action) {
                     $users->create();
                 }
             } elseif ('shopping' === $route && $action) {
+                $panier = new PanierController();
                 if ('read' === $action) {
+                    $panier->read();
+                }
+                if('ajout' === $action && isset($_GET['id'])) {
+                    $panier->ajout($_GET['id']);
+                }
+                if('delete' === $action && isset($_GET['id'])) {
+                    $panier->delete($_GET['id']);
                 }
             }
         } else {

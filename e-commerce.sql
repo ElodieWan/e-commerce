@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : sam. 04 déc. 2021 à 20:38
+-- Généré le : Dim 05 déc. 2021 à 22:16
 -- Version du serveur :  5.7.31
 -- Version de PHP : 7.4.9
 
@@ -53,6 +53,20 @@ INSERT INTO `articles` (`id`, `date`, `titre`, `description`, `marque`, `prix`, 
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `panier_articles`
+--
+
+DROP TABLE IF EXISTS `panier_articles`;
+CREATE TABLE IF NOT EXISTS `panier_articles` (
+  `idUsers` int(11) NOT NULL,
+  `idArticles` int(11) NOT NULL,
+  KEY `idUsers` (`idUsers`),
+  KEY `idArticles` (`idArticles`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `users`
 --
 
@@ -63,8 +77,17 @@ CREATE TABLE IF NOT EXISTS `users` (
   `email` varchar(1000) NOT NULL,
   `password` varchar(10000) NOT NULL,
   `authority` tinyint(1) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `panier` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `panier` (`panier`)
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `users`
+--
+
+INSERT INTO `users` (`id`, `username`, `email`, `password`, `authority`, `panier`) VALUES
+(1, 'juice', 'elodiewan2001@gmail.com', '$2y$10$ZgHk/9hSYIwkIPlhr8gUsOKWwgwnFkMGkFlXRi6VmQcRQ71Ce6oOm', 1, 1);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

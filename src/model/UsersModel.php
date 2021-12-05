@@ -1,7 +1,6 @@
 <?php
 
 namespace App\model;
-use App\model\PanierModel;
 
 class UsersModel
 {
@@ -10,7 +9,7 @@ class UsersModel
     private String $email;
     private String $password;
     private int $authority;
-    private PanierModel $panier;
+    private int $panier;
 
     public function getId() : int
     {
@@ -67,12 +66,12 @@ class UsersModel
         return $this;
     }
 
-    public function getPanier() : PanierModel
+    public function getPanier() : int
     {
         return $this->panier;
     }
 
-    public function setPanier(PanierModel $panier) : self
+    public function setPanier(int $panier) : self
     {
         $this->panier = $panier;
         return $this;

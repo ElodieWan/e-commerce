@@ -16,9 +16,15 @@ class ArticleController
         $this->articleRepository = new ArticleRepository();
     }
 
-    public function read($id)
+    public function read($id, $data = [])
     {
         if ($this->articleRepository->checkExist($id)) {
+            if(isset($data["message"])) {
+                $this->view->render("/ArticleView/read", [
+                    "article" => $this->articleRepository->getById($id),
+                    "message" => $data['message']
+                ]);
+            }
             $this->view->render("/ArticleView/read", [
                 "article" => $this->articleRepository->getById($id)
             ]);

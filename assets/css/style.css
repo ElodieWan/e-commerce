@@ -28,3 +28,7 @@
 .connexion:hover {
     color: cornsilk;
 }
+
+.list-articles {
+    display: inline;
+}

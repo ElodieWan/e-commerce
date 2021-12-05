@@ -66,7 +66,7 @@ class ArticleRepository extends Database
 
     public function updateArticle(ArticleModel $article) : bool
     {
-        $return 1;
+        return 1;
     }
 
     public function buildObject($row): ArticleModel

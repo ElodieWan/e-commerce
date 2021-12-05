@@ -27,7 +27,7 @@ class PanierRepository extends Database
 
     public function getArticlesByUsers(int $id) : array
     {
-        $prep = $this->createQuery("SELECT * FROM articles JOIN panier_articles pa ON pa.idArticles = articles.id WHERE (SELECT id FROM users WHERE users.id = pa.idUsers AND users.id =:id'", ['id' => $id]);
+        $prep = $this->createQuery("SELECT * FROM articles JOIN panier_articles pa ON pa.idArticles = articles.id WHERE (SELECT id FROM users WHERE users.id = pa.idUsers AND users.id =:id)", ['id' => $id]);
         $result = $prep->fetchAll(\PDO::FETCH_ASSOC);
         $res = array();
         foreach ($result as $row) {
@@ -35,5 +35,16 @@ class PanierRepository extends Database
             array_push($res, ($article->buildObject($row)));
         }
         return $res;
+    }
+
+    public function getTotalPrix(int $id) : int
+    {
+        $total = 0;
+        $prep = $this->createQuery("SELECT * FROM articles JOIN panier_articles pa ON pa.idArticles = articles.id WHERE (SELECT id FROM users WHERE users.id = pa.idUsers AND users.id =:id)", ['id' => $id]);
+        $result = $prep->fetchAll(\PDO::FETCH_ASSOC);
+        foreach ($result as $row) {
+            $total+=$row['prix'];
+        }
+        return $total;
     }
 }
