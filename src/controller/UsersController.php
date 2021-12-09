@@ -65,15 +65,16 @@ class UsersController
 
     public function create()
     {
-        $message = "formulaire non rempli";
-        if ('POST' === $_SERVER['REQUEST_METHOD'] && isset($_POST['username']) && isset($_POST['email']) && isset($_POST['password'])) {
-            if (!$this->usersRepository->checkExist($_POST['username'])) {
-                if (!(is_string($message = $this->usersRepository->createAccount($_POST)))) {
-                    $message = "inscription réussi";
-                };
-            }
-            $message = "nom d'utilisateur existant";
-        }
-        $this->view->render('i/UsersView/inscription', ["message" => $message]);
+      $message = "formulaire non rempli";
+      if ('POST' === $_SERVER['REQUEST_METHOD'] && isset($_POST['username']) && isset($_POST['email']) && isset($_POST['password'])) {
+          if (!$this->usersRepository->checkExist($_POST['username'])) {
+              if (!(is_string($message = $this->usersRepository->createAccount($_POST)))) {
+                  $message = "inscription réussi";
+              };
+          }
+          $message = "nom d'utilisateur existant";
+      }
+        $this->view->render('UsersView/inscription', ["message" => $message]);
+        //$this->view->render('i/UsersView/inscription', ["message" => $message]);
     }
 }

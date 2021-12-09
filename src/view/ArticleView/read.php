@@ -9,4 +9,4 @@
 	<li>Description : <?= $article->getDescription() ?></li>
 	<li>Prix : <?= $article->getPrix() ?>€</li>
 </ul>
-<button class="d-flex align-center"><a class="linkToArticles" href= "index.php?route=shopping&action=ajout&id=<?=$article->getId()?>">Ajouter au panier</a></button>
+<button class="d-flex align-center btn btn-dark"><a class="linkToArticles" href= "index.php?route=shopping&action=ajout&id=<?=$article->getId()?>">Ajouter au panier</a></button>

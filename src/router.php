@@ -19,6 +19,7 @@ class Router
 
                 if ($action) {
                     if ('create' === $action) {
+                      $article->createNewArticle();
                     } elseif ('read' === $action && isset($_GET['id'])) {
                         return $article->read($_GET['id']);
                     } elseif ('modif' === $action && isset($_GET['id'])) {

@@ -9,16 +9,17 @@ class ArticleRepository extends Database
 {
     public function createArticle(ArticleModel $article) : bool
     {
-        $sql = 'INSERT INTO articles VALUES (:date, :titre, :description, :marque, :etat)';
-        $result = $this->createQuery($sql, [
-            ':date' => $article->getDate(),
+        $result = $this->createQuery('INSERT INTO articles (date, titre, description, marque) VALUES (:date, :titre, :description, :marque)', [
+            ':date' => now(),
+            //':date' => $article->getDate(),
             ':titre' => $article->getTitre(),
             ':description' => $article->getDescription(),
-            'marque' => $article->getMarque(),
-            'etat' => $article->getEtat(),
+            ':marque' => $article->getMarque(),
         ]);
         return (bool) $result->rowCount();
+
     }
+
 
     public function getLast3(): array
     {
@@ -57,7 +58,7 @@ class ArticleRepository extends Database
     public function getById(int $id)
     {
         if ($this->checkExist($id)) {
-            $result = $this->createQuery('SELECT * FROM articles WHERE id=:id AND etat=:etat', 
+            $result = $this->createQuery('SELECT * FROM articles WHERE id=:id AND etat=:etat',
             [':id' => $id, ':etat' => 1]);
             return $this->buildObject($result->fetch());
         }
