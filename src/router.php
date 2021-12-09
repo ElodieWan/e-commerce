@@ -20,12 +20,12 @@ class Router
                 if ($action) {
                     if ('create' === $action) {
                     } elseif ('read' === $action && isset($_GET['id'])) {
-                        return $article->read($_GET['id']);
+                        $article->read($_GET['id']);
                     } elseif ('modif' === $action && isset($_GET['id'])) {
-                        return $article->read($_GET['id']);
+                        $article->read($_GET['id']);
                     }
                 }
-                return $article->readAll();
+                $article->readAll();
             } elseif ('users' === $route && $action) {
                 $users = new UsersController();
                 if ('connexion' === $action) {

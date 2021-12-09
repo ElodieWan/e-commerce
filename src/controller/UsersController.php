@@ -74,6 +74,6 @@ class UsersController
             }
             $message = "nom d'utilisateur existant";
         }
-        $this->view->render('i/UsersView/inscription', ["message" => $message]);
+        $this->view->render('/UsersView/inscription', ["message" => $message]);
     }
 }

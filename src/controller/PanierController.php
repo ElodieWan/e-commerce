@@ -43,6 +43,7 @@ class PanierController
     {
         session_start();
         $idUsers = $_SESSION['id'];
+        session_write_close();
         $this->panierRepository->addArticle(['idUsers' => $idUsers, 'idArticles' => $id]);
         $article = new ArticleController();
         $article->read($id, ['message' => "Ajout avec succès"]);

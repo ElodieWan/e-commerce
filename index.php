@@ -10,4 +10,4 @@ $router = new Router();
 $router->run();
 $view = new View();
 $articles = new ArticleRepository();
-$view->render('\home', ['lastThree' => $articles->getLast3()]);
+$view->render('/home', ['lastThree' => $articles->getLast3()]);

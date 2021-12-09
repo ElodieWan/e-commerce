@@ -19,14 +19,23 @@ class ArticleController
     public function read($id, $data = [])
     {
         if ($this->articleRepository->checkExist($id)) {
+            session_start();
+            $article = $this->articleRepository->getById($id);
+            $href="index.php?route=users&action=connexion";
+            if(isset($_SESSION['connecter'])) {
+                $href="index.php?route=shopping&action=ajout&id=".$article->getId();
+            }
+            session_write_close();
             if(isset($data["message"])) {
                 $this->view->render("/ArticleView/read", [
-                    "article" => $this->articleRepository->getById($id),
+                    "article" => $article,
+                    "href" => $href,
                     "message" => $data['message']
                 ]);
             }
             $this->view->render("/ArticleView/read", [
-                "article" => $this->articleRepository->getById($id)
+                "article" => $article,
+                "href" => $href
             ]);
         }
     }
