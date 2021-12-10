@@ -51,8 +51,26 @@ class Router
                     $panier->delete($_GET['id']);
                 }
             }
+          elseif ('newArticle' === $route && $action) {
+
+              $newArticle = new ArticleController();
+
+              if ('newArt' === $action) {
+                  $newArticle->createNewArticle();
+              }  elseif ('create' === $action) {
+                  $newArticle->create();
+              }
+              if('delete' === $action && isset($_GET['id'])) {
+                  $newArticle->deleteBis($_GET['id']);
+              }
+              if('modifArt' === $action && isset($_GET['id'])) {
+                  $newArticle->modifArt($_GET['id']);
+              }   elseif ('modif' === $action && isset($_GET['id'])) {
+                  $newArticle->modif($_GET['id']);
         } else {
             require_once 'index.php';
         }
+      }
     }
+}
 }

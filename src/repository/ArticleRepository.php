@@ -7,19 +7,52 @@ use App\model\ArticleModel;
 
 class ArticleRepository extends Database
 {
-    public function createArticle(ArticleModel $article) : bool
-    {
-        $sql = 'INSERT INTO articles VALUES (:date, :titre, :description, :marque, :etat)';
-        $result = $this->createQuery($sql, [
-            ':date' => $article->getDate(),
-            ':titre' => $article->getTitre(),
-            ':description' => $article->getDescription(),
-            'marque' => $article->getMarque(),
-            'etat' => $article->getEtat(),
-        ]);
-        return (bool) $result->rowCount();
-    }
+  public function createArticle(array $data = [])
+  {
+      $result = $this->createQuery('INSERT INTO articles (date, titre, description, marque, prix) VALUES (:date, :titre, :description, :marque, :prix)', [
+          ':date' => date("Y-m-d"),
+          ':titre' => $data['titre'],
+          ':description' => $data['description'],
+          ':marque' => $data['marque'],
+          ':prix' => $data['prix'],
+      ]);
+      return (bool) $result->rowCount();
 
+  }
+
+
+  public function deleteArticlebis($data = []) : bool
+  {
+      $prep = $this->createQuery("DELETE FROM articles WHERE id=:id LIMIT 1", [
+          ':id'=>$data['id']
+      ]);
+
+
+
+      return (bool) $prep->rowCount();
+  }
+######
+  public function modifArticle($data = []) : bool
+  {
+     $prep = $this->createQuery("UPDATE articles SET titre=:titre description=:description marque=:marque prix=:prix WHERE id=:id", [
+          ':id'=>$data['id'],
+          ':titre' => $data['titre'],
+          ':description' => $data['description'],
+          ':marque' => $data['marque'],
+          ':prix' => $data['prix'],
+
+      ]);
+
+
+      $prep->execute(array(
+          'titre' => $_POST['titre'],
+          'description' => $_POST['description'],
+          'marque' => $_POST['marque'],
+          'prix' => $_POST['prix']
+          ));
+      return (bool) $prep->rowCount();
+  }
+#######
     public function getLast3(): array
     {
         $prep = $this->createQuery("SELECT * FROM articles WHERE etat = 1 ORDER BY DATE DESC LIMIT 3");
@@ -57,7 +90,7 @@ class ArticleRepository extends Database
     public function getById(int $id)
     {
         if ($this->checkExist($id)) {
-            $result = $this->createQuery('SELECT * FROM articles WHERE id=:id AND etat=:etat', 
+            $result = $this->createQuery('SELECT * FROM articles WHERE id=:id AND etat=:etat',
             [':id' => $id, ':etat' => 1]);
             return $this->buildObject($result->fetch());
         }
