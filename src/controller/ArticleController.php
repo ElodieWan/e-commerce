@@ -16,6 +16,22 @@ class ArticleController
         $this->articleRepository = new ArticleRepository();
     }
 
+    public function createNewArticle()
+    {
+        $this->view->render("/ArticleView/newArticle");
+    }
+
+    public function modifArt($id, $data = []) {
+      if ($this->articleRepository->checkExist($id)) {
+          $article = $this->articleRepository->getById($id);
+          }
+
+          $this->view->render("/ArticleView/modifArticle", [
+              "article" => $article
+          ]);
+      }
+
+
     public function read($id, $data = [])
     {
         if ($this->articleRepository->checkExist($id)) {
@@ -49,11 +65,32 @@ class ArticleController
         ]);
     }
 
+
     public function create()
     {
+        $message = "formulaire non rempli";
+        if ('POST' === $_SERVER['REQUEST_METHOD'] && isset($_POST['titre']) && isset($_POST['description']) && isset($_POST['marque'])&& isset($_POST['prix'])) {
+            if (!(is_string($message = $this->articleRepository->createArticle($_POST)))) {
+                $message = "ajout réussi";
+            };
+        }
+        $this->view->render('/ArticleView/newArticle', ["message" => $message]);
     }
 
-    public function modif() {
-        
-    }
+
+    public function modif(int $idbis) {
+
+      if (isset($_POST['titre']) && isset($_POST['description']) && isset($_POST['marque'])&& isset($_POST['prix'])) {
+        try {
+          $this->articleRepository->modifArticle(['id' => $idbis]);
+          $this->view->render('/ArticleView/readAll');
+
+          }
+        }
+     }
+
+
+    public function deleteBis(int $idbis)
+    {
+        $this->articleRepository->deleteArticlebis(['id' => $idbis]);    }
 }
