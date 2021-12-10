@@ -1,8 +1,6 @@
-
-
 <h1>Modifier l'article</h1>
 
-<form action="index.php?route=newArt&action=modif" method="post" >
+<form method="POST" action="index.php?route=article&action=modif&id=<?=$article->getId()?>">
 
 
   <div class="mb-3">

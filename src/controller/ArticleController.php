@@ -21,28 +21,18 @@ class ArticleController
         $this->view->render("/ArticleView/newArticle");
     }
 
-    public function modifArt($id, $data = []) {
-      if ($this->articleRepository->checkExist($id)) {
-          $article = $this->articleRepository->getById($id);
-          }
-
-          $this->view->render("/ArticleView/modifArticle", [
-              "article" => $article
-          ]);
-      }
-
 
     public function read($id, $data = [])
     {
         if ($this->articleRepository->checkExist($id)) {
             session_start();
             $article = $this->articleRepository->getById($id);
-            $href="index.php?route=users&action=connexion";
-            if(isset($_SESSION['connecter'])) {
-                $href="index.php?route=shopping&action=ajout&id=".$article->getId();
+            $href = "index.php?route=users&action=connexion";
+            if (isset($_SESSION['connecter'])) {
+                $href = "index.php?route=shopping&action=ajout&id=" . $article->getId();
             }
             session_write_close();
-            if(isset($data["message"])) {
+            if (isset($data["message"])) {
                 $this->view->render("/ArticleView/read", [
                     "article" => $article,
                     "href" => $href,
@@ -56,12 +46,17 @@ class ArticleController
         }
     }
 
-    public function readAll()
+    public function readAll($data = [])
     {
+        $message="";
+        if(isset($data["message"])) {
+            $message=$data["message"];
+        }
         $this->view->render("/ArticleView/readAll", [
             "articles" => $this->articleRepository->getAll(),
-            "rowCount" => (((int)($this->articleRepository->getNumberArticles()/3))+1)*3,
-            "articlesNumber" => $this->articleRepository->getNumberArticles()
+            "rowCount" => (((int)($this->articleRepository->getNumberArticles() / 3)) + 1) * 3,
+            "articlesNumber" => $this->articleRepository->getNumberArticles(),
+            "message" => $message
         ]);
     }
 
@@ -69,7 +64,7 @@ class ArticleController
     public function create()
     {
         $message = "formulaire non rempli";
-        if ('POST' === $_SERVER['REQUEST_METHOD'] && isset($_POST['titre']) && isset($_POST['description']) && isset($_POST['marque'])&& isset($_POST['prix'])) {
+        if ('POST' === $_SERVER['REQUEST_METHOD'] && isset($_POST['titre']) && isset($_POST['description']) && isset($_POST['marque']) && isset($_POST['prix'])) {
             if (!(is_string($message = $this->articleRepository->createArticle($_POST)))) {
                 $message = "ajout réussi";
             };
@@ -78,19 +73,31 @@ class ArticleController
     }
 
 
-    public function modif(int $idbis) {
-
-      if (isset($_POST['titre']) && isset($_POST['description']) && isset($_POST['marque'])&& isset($_POST['prix'])) {
-        try {
-          $this->articleRepository->modifArticle(['id' => $idbis]);
-          $this->view->render('/ArticleView/readAll');
-
-          }
-        }
-     }
-
-
-    public function deleteBis(int $idbis)
+    public function modifArt($id)
     {
-        $this->articleRepository->deleteArticlebis(['id' => $idbis]);    }
+        if ($this->articleRepository->checkExist($id)) {
+            $article = $this->articleRepository->getById($id);
+        }
+
+        $this->view->render("/ArticleView/modifArticle", [
+            "article" => $article
+        ]);
+    }
+
+    public function modif($id)
+    {
+        if ('POST' === $_SERVER['REQUEST_METHOD'] && isset($_POST['titre']) && isset($_POST['description']) && isset($_POST['marque']) && isset($_POST['prix'])) {
+            $message = "modif échoué";
+            if ($this->articleRepository->modifArticle($id, $_POST)) {
+                $message = "modif réussi";
+            }
+            $this->readAll(["message" =>$message]);
+        }
+    }
+
+
+    public function delete(int $id)
+    {
+        $this->articleRepository->deleteArticle($id);
+    }
 }

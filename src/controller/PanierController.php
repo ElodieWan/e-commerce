@@ -22,6 +22,7 @@ class PanierController
         session_start();
         $username = $_SESSION['username'];
         $id = $_SESSION['id'];
+        session_write_close();
         $articles = $this->panierRepository->getArticlesByUsers($id);
         $prix = $this->panierRepository->getTotalPrix($id);
         if (isset($data["message"])) {

@@ -2,7 +2,7 @@
 
 <h1>Ajouter un article</h1>
 
-<form method="POST" action="index.php?route=newArticle&action=create">
+<form method="POST" action="index.php?route=article&action=create">
 <!-- <form method="POST" action="index.php?route=users&action=create"> -->
 
 	<div class="mb-3">

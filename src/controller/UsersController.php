@@ -57,6 +57,7 @@ class UsersController
                 $_SESSION['id'] = $login->getId();
                 $_SESSION['username'] = $username;
                 $_SESSION['authority'] = $login->getAuthority();
+                session_write_close();
                 $login = "connexion réussite";
             }
         }

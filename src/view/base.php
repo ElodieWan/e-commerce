@@ -33,7 +33,7 @@
                         <a class="nav-link" aria-current="page" href="index.php?route=article">Articles</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" aria-current="page" href="index.php?route=newArticle&action=newArt">Nouvel article</a>
+                      <a class="nav-link" aria-current="page" href="index.php?route=article&action=newArt">Nouvel article</a>
                     </li>
                 </ul>
                 <div class="d-flex">

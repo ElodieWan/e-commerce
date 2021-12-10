@@ -10,5 +10,5 @@
 	<li>Prix : <?= $article->getPrix() ?>€</li>
 </ul>
 <button class="d-flex align-center"><a class="linkToArticles" href=<?=$href?>>Ajouter au panier</a></button>
-<button class="btn"><a class="linkToArticles" href="index.php?route=newArticle&action=delete&id=<?= $article->getId()?>">Supprimer l'article</a></button>
-<button class="btn"><a class="linkToArticles" href="index.php?route=newArticle&action=modifArt&id=<?= $article->getId()?>">Modifier l'article</a></button>
+<button class="btn"><a class="linkToArticles" href="index.php?route=article&action=delete&id=<?= $article->getId()?>">Supprimer l'article</a></button>
+<button class="btn"><a class="linkToArticles" href="index.php?route=article&action=modifArt&id=<?= $article->getId()?>">Modifier l'article</a></button>

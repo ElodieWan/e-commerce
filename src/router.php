@@ -18,12 +18,21 @@ class Router
                 $article = new ArticleController();
 
                 if ($action) {
-                    if ('create' === $action) {
-                    } elseif ('read' === $action && isset($_GET['id'])) {
+                    if ('read' === $action && isset($_GET['id'])) {
                         $article->read($_GET['id']);
-                    } elseif ('modif' === $action && isset($_GET['id'])) {
-                        $article->read($_GET['id']);
+                    } elseif ('newArt' === $action) {
+                        $article->createNewArticle();
+                    } elseif ('create' === $action) {
+                        $article->create();
+                    } elseif ('delete' === $action && isset($_GET['id'])) {
+                        $article->delete($_GET['id']);
+                    } elseif ('modifArt' === $action && isset($_GET['id'])) {
+                        $article->modifArt($_GET['id']);
+                    } elseif ('modif' === $action) {
+                        $article->modif($_GET['id']);
                     }
+
+                    $article->readAll();
                 }
                 $article->readAll();
             } elseif ('users' === $route && $action) {
@@ -44,33 +53,15 @@ class Router
                 if ('read' === $action) {
                     $panier->read();
                 }
-                if('ajout' === $action && isset($_GET['id'])) {
+                if ('ajout' === $action && isset($_GET['id'])) {
                     $panier->ajout($_GET['id']);
                 }
-                if('delete' === $action && isset($_GET['id'])) {
+                if ('delete' === $action && isset($_GET['id'])) {
                     $panier->delete($_GET['id']);
                 }
+            } else {
+                require_once 'index.php';
             }
-          elseif ('newArticle' === $route && $action) {
-
-              $newArticle = new ArticleController();
-
-              if ('newArt' === $action) {
-                  $newArticle->createNewArticle();
-              }  elseif ('create' === $action) {
-                  $newArticle->create();
-              }
-              if('delete' === $action && isset($_GET['id'])) {
-                  $newArticle->deleteBis($_GET['id']);
-              }
-              if('modifArt' === $action && isset($_GET['id'])) {
-                  $newArticle->modifArt($_GET['id']);
-              }   elseif ('modif' === $action && isset($_GET['id'])) {
-                  $newArticle->modif($_GET['id']);
-        } else {
-            require_once 'index.php';
         }
-      }
     }
-}
 }
