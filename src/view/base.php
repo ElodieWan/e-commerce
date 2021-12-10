@@ -32,9 +32,11 @@
                     <li class="nav-item">
                         <a class="nav-link" aria-current="page" href="index.php?route=article">Articles</a>
                     </li>
+                    <?php if (isset($_SESSION['connecter'])) : ?>
                     <li class="nav-item">
                       <a class="nav-link" aria-current="page" href="index.php?route=article&action=newArt">Nouvel article</a>
                     </li>
+                    <?php endif; ?>
                 </ul>
                 <div class="d-flex">
                     <?php if (!isset($_SESSION['connecter'])) : ?>

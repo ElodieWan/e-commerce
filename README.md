@@ -6,6 +6,10 @@ Router :
         Action (Possible à l'heure actuel) :
             - read($id)  (envoie vers le controller pour lire l'article avec $id)
             - readAll (afficher la pages avec tous les articles)
+            - newArt (affiche le formulaire de création d'un nouvel article)
+            - create (envoie vers le controller pour ajouter les valeurs du formulaire dans la base de données)
+            - modifArt($id) (renvoie vers la page avec le formulaire de modification)
+            - modif($id) (envoie au controller les valeurs modifié à la base de données)
 
     - Tous ce qui concerne les utilisateurs sont dans la route users.
         Action (possible à l'heure actuel) :

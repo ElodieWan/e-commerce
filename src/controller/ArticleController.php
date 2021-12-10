@@ -28,8 +28,10 @@ class ArticleController
             session_start();
             $article = $this->articleRepository->getById($id);
             $href = "index.php?route=users&action=connexion";
+            $session = false;
             if (isset($_SESSION['connecter'])) {
                 $href = "index.php?route=shopping&action=ajout&id=" . $article->getId();
+                $session = $_SESSION['connecter'];
             }
             session_write_close();
             if (isset($data["message"])) {
@@ -41,16 +43,17 @@ class ArticleController
             }
             $this->view->render("/ArticleView/read", [
                 "article" => $article,
-                "href" => $href
+                "href" => $href,
+                "connecter" => $session
             ]);
         }
     }
 
     public function readAll($data = [])
     {
-        $message="";
-        if(isset($data["message"])) {
-            $message=$data["message"];
+        $message = "";
+        if (isset($data["message"])) {
+            $message = $data["message"];
         }
         $this->view->render("/ArticleView/readAll", [
             "articles" => $this->articleRepository->getAll(),
@@ -91,7 +94,7 @@ class ArticleController
             if ($this->articleRepository->modifArticle($id, $_POST)) {
                 $message = "modif réussi";
             }
-            $this->readAll(["message" =>$message]);
+            $this->readAll(["message" => $message]);
         }
     }
 
