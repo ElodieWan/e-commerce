@@ -31,11 +31,9 @@ class Router
                     } elseif ('modif' === $action) {
                         $article->modif($_GET['id']);
                     }
-
-                    $article->readAll();
                 }
                 $article->readAll();
-            } elseif ('users' === $route && $action) {
+            }    elseif ('users' === $route && $action) {
                 $users = new UsersController();
                 if ('connexion' === $action) {
                     $users->connexion();
