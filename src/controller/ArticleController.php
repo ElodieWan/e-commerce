@@ -38,7 +38,8 @@ class ArticleController
                 $this->view->render("/ArticleView/read", [
                     "article" => $article,
                     "href" => $href,
-                    "message" => $data['message']
+                    "message" => $data['message'],
+                    "connecter" =>$session
                 ]);
             }
             $this->view->render("/ArticleView/read", [

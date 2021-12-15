@@ -44,6 +44,7 @@ class PanierController
     {
         session_start();
         $idUsers = $_SESSION['id'];
+        $connecter = $_SESSION['connecter'];
         session_write_close();
         $this->panierRepository->addArticle(['idUsers' => $idUsers, 'idArticles' => $id]);
         $article = new ArticleController();
